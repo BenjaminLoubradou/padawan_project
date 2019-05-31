@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Apprenez à coder avec des projets">
+    <title>{% block title %}Padawan Project{% endblock title %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/padawan.css') }}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-navbar-padawan fixed-top">
+    <a class="navbar-brand" href="#">PADAWAN PROJECT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Déposer un projet <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Devenir un Padawan</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="projets.html">Voir les derniers projets</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block body %}{% endblock body %}
+
+<script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"><\/script>')</script><script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script></body>
 </html>

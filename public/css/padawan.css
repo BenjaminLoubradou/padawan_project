@@ -1,0 +1,22 @@
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.bg-navbar-padawan {
+    background-color: #0876ed;
+}
+
+     .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
