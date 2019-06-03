@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5 mt-5">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <h1 class="h3 mb-3 font-weight-normal">Vous êtes déjâ un Padawan ?</h1>
+                    <h6>Identifiez-vous</h6>
+
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+
+
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control  mt-3" placeholder="Mot de passe" required>
+
+
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}">
+
+                    {#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html#}
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary mt-2" type="submit">
+                        Envoyer
+                    </button>
+
+
+            {#<div class="text-center">
+                <h1 class="h3 mb-3 font-weight-normal">Veuillez-vous identifier, s'il vous plait</h1>
+                <div class="form-group col-4 offset-4">
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                </div>
+                <div class="form-group col-4 offset-4">
+                    <label for="inputPassword" class="sr-only">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                </div>
+
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                    #}{#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html#}{#
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Sign in
+                </button>
+            </div>#}
+            </form>
+            </div>
+            <div class="col-5 offset-2">
+                <img class="img-fluid" src="{{ asset('img/padawan.jpg') }}" alt="Padawan">
+                <a href="#" class="btn btn-block btn-dark"> Vous souhaitez devenir un padawan ? <br> Créez un compte</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

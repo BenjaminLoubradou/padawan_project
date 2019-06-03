@@ -22,13 +22,19 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Déposer un projet <span class="sr-only">(current)</span></a>
             </li>
+            {% if app.user == false %}
             <li class="nav-item active">
                 <a class="nav-link" href="#">Devenir un Padawan</a>
             </li>
+            {% endif %}
+
             <li class="nav-item active">
                 <a class="nav-link" href="projets.html">Voir les derniers projets</a>
             </li>
         </ul>
+    </div>
+    <div class="text-right">
+        <p class="badge-light badge">Bienvenue {% if app.user %}{{ app.user.prenom }}{% endif %}</p>
     </div>
 </nav>
 {% block body %}{% endblock body %}
