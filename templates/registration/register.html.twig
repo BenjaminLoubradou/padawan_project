@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1>Register</h1>
+                {#{{ form_start(registrationForm) }}
+                {{ form_row(registrationForm) }}#}
+
+                {#// form détaillé#}
+                {{ form_label(registrationForm.email) }}
+                <span style="color:red">*</span>
+                {{ form_widget(registrationForm.email) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+
+                {{ form_label(registrationForm.prenom) }}
+                {{ form_widget(registrationForm.prenom) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.prenom) }}
+                </div>
+
+                {{ form_label(registrationForm.nom) }}
+                <span style="color:red">*</span>
+                {{ form_widget(registrationForm.nom) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.nom) }}
+                </div>
+
+                {{ form_label(registrationForm.bio) }}
+                <span style="color:red">*</span>
+                {{ form_widget(registrationForm.bio) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.bio) }}
+                </div>
+
+                {{ form_label(registrationForm.github) }}
+                <span style="color:red">*</span>
+                {{ form_widget(registrationForm.github) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.github) }}
+                </div>
+
+                {{ form_label(registrationForm.plainPassword) }}
+                <span style="color:red">*</span>
+                {{ form_widget(registrationForm.plainPassword) }}
+                <div class="form_error">
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+
+                <button class="btn btn-outline-primary mb-3">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+            <div class="col-4">
+                <img src="{{ asset('img/padawan.jpg') }}" alt="" class="img-fluid">
+                <a href="{{ path('app_login') }}" class="btn btn-block btn-dark">Déjà un Padawan ?<br>Identifiez-vous</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}

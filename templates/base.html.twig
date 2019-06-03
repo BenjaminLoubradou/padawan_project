@@ -34,7 +34,9 @@
         </ul>
     </div>
     <div class="text-right">
-        <p class="badge-light badge">Bienvenue {% if app.user %}{{ app.user.prenom }}{% endif %}</p>
+        <h4>
+            <span class="badge-light badge">Bienvenue {% if app.user %}{{ app.user.prenom }}{% endif %}</span>
+        </h4>
     </div>
 </nav>
 {% block body %}{% endblock body %}
