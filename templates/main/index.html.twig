@@ -7,10 +7,15 @@
         <div class="starter-template">
             <div class="row">
                 <div class="col-sm-12">
-                    <img src="{{ asset('img/padawan.jpg') }}" width="50%" alt="">
+                    <img src="{{ asset('img/padawan.jpg') }}" width="40%" alt="">
                     <p class="lead">Apprenez à coder avec des vrais projets.</p>
-                    <a class="btn btn-dark" href="">Devenir un Padawan</a>
-                    <a class="btn btn-outline-dark" href="">Déposer un projet</a>
+                    {% if app.user %}
+                        <a class="btn btn-outline-dark" href="">Déposer un projet</a>
+                    {% else %}
+                        <a class="btn btn-dark" href="">Devenir un Padawan</a>
+                    {% endif %}
+                    <a class="btn btn-outline-primary" href="">Voir les projets</a>
+
                 </div>
 
             </div>

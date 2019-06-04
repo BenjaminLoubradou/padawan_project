@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,7 +33,7 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $password;
 
@@ -58,17 +60,33 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $updated_at;
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatarGithub;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="proposePar", orphanRemoval=true)
+     */
+    private $projects;
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
+        $this->projects = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
     }
 
     public function getId(): ?int
@@ -199,24 +217,67 @@ class User implements UserInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $created_at;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updated_at;
+
+        return $this;
+    }
+
+    public function getAvatarGithub(): ?string
+    {
+        return $this->avatarGithub;
+    }
+
+    public function setAvatarGithub(?string $avatar_github): self
+    {
+        $this->avatarGithub = $avatar_github;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->setProposePar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            // set the owning side to null (unless already changed)
+            if ($project->getProposePar() === $this) {
+                $project->setProposePar(null);
+            }
+        }
 
         return $this;
     }

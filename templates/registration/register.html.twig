@@ -6,10 +6,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-8">
-                <h1>Register</h1>
-                {#{{ form_start(registrationForm) }}
-                {{ form_row(registrationForm) }}#}
+            <div class="col-6">
+                <h1>S'enregistrer</h1>
+                {{ form_start(registrationForm) }}
+                {#{{ form_row(registrationForm) }}#}
 
                 {#// form détaillé#}
                 {{ form_label(registrationForm.email) }}
@@ -53,10 +53,10 @@
                     {{ form_errors(registrationForm.plainPassword) }}
                 </div>
 
-                <button class="btn btn-outline-primary mb-3">Register</button>
+                <button class="btn btn-primary mt-4">S'enregister</button>
                 {{ form_end(registrationForm) }}
             </div>
-            <div class="col-4">
+            <div class="col-4 mt-lg-5 offset-lg-1 ">
                 <img src="{{ asset('img/padawan.jpg') }}" alt="" class="img-fluid">
                 <a href="{{ path('app_login') }}" class="btn btn-block btn-dark">Déjà un Padawan ?<br>Identifiez-vous</a>
             </div>
