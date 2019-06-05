@@ -4,20 +4,31 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\ProjectRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProjectController extends AbstractController
 {
+    private $projectRepository;
+
+    public function __construct(ProjectRepository $projectRepository){
+        $this->projectRepository = $projectRepository;
+    }
+
     /**
-     * @Route("/project", name="project")
+     * @Template()
+     * @Route("/projects", name="projects")
      */
     public function index()
     {
-        return $this->render('project/index.html.twig', [
-            'controller_name' => 'ProjectController',
-        ]);
+        $projects = $this->projectRepository->findAll();
+//        return $this->render('project/index.html.twig', [
+//            'controller_name' => 'ProjectController',
+//        ]);
+        return['projects'=>$projects];
     }
 
     /**
@@ -56,10 +67,21 @@ class ProjectController extends AbstractController
             //ajouter un message flash dans la session
             $this->addFlash('success','Merci ! Votre projet a été proposé au maitre Jedi');
             // return redirection vers la page de confirmation de création de projet
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('projects');
         }
 
         //Affichage de la vue
         return $this->render('project/add.html.twig',['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Template()
+     * @Route("/project/{id}", name="project_show")
+     */
+    public function show(Request$request){
+        $project = $this->projectRepository->find($request->get('id'));
+
+        return ['project'=>$project];
+//        return $this->render('project/show.html.twig');
     }
 }
