@@ -10,9 +10,9 @@
                     <img src="{{ asset('img/padawan.jpg') }}" width="40%" alt="">
                     <p class="lead">Apprenez à coder avec des vrais projets.</p>
                     {% if app.user %}
-                        <a class="btn btn-outline-dark" href="">Déposer un projet</a>
+                        <a class="btn btn-outline-dark" href="{{ path('project_add') }}">Déposer un projet</a>
                     {% else %}
-                        <a class="btn btn-dark" href="">Devenir un Padawan</a>
+                        <a class="btn btn-dark" href="{{ path('app_register') }}">Devenir un Padawan</a>
                     {% endif %}
                     <a class="btn btn-outline-primary" href="">Voir les projets</a>
 
