@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Project;
+use App\Form\ParticipantType;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -81,7 +83,23 @@ class ProjectController extends AbstractController
     public function show(Request$request){
         $project = $this->projectRepository->find($request->get('id'));
 
-        return ['project'=>$project];
+        $participant = new Participant();
+        $participant->setProject($project);
+        $participant->setPadawan($this->getUser());
+        $participant->setStatut('en cours');
+        $participant->setDateInscription(new \DateTime());
+
+        $form = $this->createForm(ParticipantType::class,$participant);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($participant);
+            $em->flush();
+            $this->addFlash('success','A toi de jouer jeune Padawan !');
+            return $this->redirectToRoute('project_show',['id'=>$project->getId()]);
+        }
+
+        return ['project'=>$project,'form'=>$form->createView()];
 //        return $this->render('project/show.html.twig');
     }
 }

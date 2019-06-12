@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Padawan : {{ padawan.prenom }} {{ padawan.nom }}{% endblock %}
+
+{% block body %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="container mt-8">
+                <div class="row">
+                    <hr>
+                    <div class="col-2">
+                        <img class="img-fluid rounded-circle float-left" src="{{ padawan.avatarGithub }}" alt="">
+                    </div>
+                    <div class="col-10">
+                        <h4>{{ padawan.prenom }} {{ padawan.nom }}</h4>
+                        <p>{{ padawan.bio }}</p>
+                        <p>
+                            <a class="btn btn-outline-info btn-sm"
+                               href="https://www.github.com/{{ padawan.github }}" role="button">Github
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                        <h4 class="mt-3">Projets</h4>
+                        {% for project in projects %}
+                        <h3>{{ project.nom }}</h3>
+                        <div class="my-3 p-3 bg-white rounded shadow-sm">
+                            <p>Participe depuis le : <strong>{{ project.date_inscription | date('d/m/Y') }}</strong></p>
+                            <h6 class="border-bottom border-gray pb-2 mb-0">Derniers commits</h6>
+                            {% for commit in project.commits %}
+                            <div class="media text-muted pt-3">
+                                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"></rect><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+                                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                    <strong class="d-block text-gray-dark"><a href="{{ commit.commitUrl }}">{{ commit.message }}</a></strong>
+                                    Fait le {{ commit.committedDate | date('d/m/Y H:i') }}
+                                    <br> Par: <strong>{{ commit.author.name }}</strong>
+                                </p>
+                            </div>
+                            {% endfor %}
+
+                            <small class="d-block text-right mt-3">
+                                <a href="#">Voir tous les commits</a>
+                            </small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

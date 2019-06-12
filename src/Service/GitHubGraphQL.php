@@ -20,7 +20,36 @@ class GitHubGraphQL
           }
         }
 GRAPHQL;
-        $datas = $this->graphql_query('https://api.github.com/graphql', $query, ['user' => $login], ' c7c262e7e6a5af566be9313c0984c0774beffee6');
+        $datas = $this->graphql_query('https://api.github.com/graphql', $query, ['user' => $login], 'cdf940b8cc995cad96cb0f58cb4c4e347a46d701');
+        return $datas;
+    }
+
+    public function getCommits($repository,$owner,$limit = 10) {
+        $query =<<<'GRAPHQL'
+           query GetCommits($owner: String!,$name: String!,$limit: Int!) {
+           repository(owner: $owner, name: $name) {
+            object(expression: "master") {
+                ... on Commit {
+                    history (first:$limit){
+                        totalCount
+                          nodes {
+                            committedDate
+                            id
+                            message
+                            commitUrl
+                            author {
+                                date
+                                email
+                                name
+                            }
+          }
+        }
+      }
+    }
+  }
+}
+GRAPHQL;
+        $datas =  $this->graphql_query('https://api.github.com/graphql', $query, ['owner' => $owner,'name'=>$repository,'limit'=>$limit], 'cdf940b8cc995cad96cb0f58cb4c4e347a46d701');
         return $datas;
     }
 

@@ -29,6 +29,8 @@ class ProjectType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Project::class,
+            // supprimer le titre du form (projet)
+            'label'=>false
         ]);
     }
 }

@@ -12,7 +12,17 @@
 
                         <a class="btn btn-sm btn-outline-warning mt-2 mb-2" href="">Je me lance !</a> <br>
                         {{ project.description }}
-
+                        {% if app.user %}
+                            <div class="text-left jumbotron p-2 mt-3">
+                                <strong>Vous voulez participer à ce projet ?</strong>
+                                {{ form_start(form) }}
+                                {{ form_row(form.githubRepository) }}
+                                <button class="btn btn-primary btn-sm">Je me lance !</button>
+                                {{ form_end(form) }}
+                            </div>
+                            {% else %}
+                                <a href="{{ path('app_login') }}"></a>
+                        {% endif %}
                     </div>
                     <div class="col-4 text-center">
                         <img class="img-fluid" src="{{ vich_uploader_asset(project,'imageFile') }}" alt="{{ project.nom }}">
@@ -26,21 +36,19 @@
                     </div>
                 </div>
                 <div class="row text-center">
-                    <div class="col-lg-1">
-                        <img class="img-fluid rounded-circle" src="img/charlie-ico.jpg" alt="">
-                        <h6>Charlie</h6>
-                        <p><a class="btn btn-outline-info btn-sm" href="#" role="button">Github</a></p>
-                    </div><!-- /.col-lg-4 -->
-                    <div class="col-lg-1">
-                        <img class="img-fluid rounded-circle" src="img/fanch-ico.jpg" alt="">
-                        <h6>Charlie</h6>
-                        <p><a class="btn btn-outline-info btn-sm" href="#" role="button">Github</a></p>
-                    </div><!-- /.col-lg-4 -->
-                    <div class="col-lg-1">
-                        <img class="img-fluid rounded-circle" src="img/marie-ico.jpg" alt="">
-                        <h6>Marie</h6>
-                        <p><a class="btn btn-outline-info btn-sm" href="#" role="button">Github</a></p>
-                    </div><!-- /.col-lg-4 -->
+                    {% for participant in project.participants %}
+                        <div class="col-lg-1">
+                            <img class="img-fluid rounded-circle"
+                                 src="{{ participant.padawan.avatarGithub }}" alt="">
+                            <p>
+                                <a class="btn btn-outline-info btn-sm mt-3"
+                                  href="{{ path('padawan_profil',{'id':participant.padawan.id}) }}"
+                                  role="button">{{ participant.padawan.prenom }}
+                                </a>
+                            </p>
+                        </div><!-- /.col-lg-4 -->
+                    {% endfor %}
+
                 </div>
             </div>
         </div>
